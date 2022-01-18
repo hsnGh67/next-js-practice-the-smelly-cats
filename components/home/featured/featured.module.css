@@ -1,0 +1,5 @@
+.bgContainer{
+    background-image:linear-gradient(to bottom , #2424244d 0% , rgb(11 11 11 / 75%) 100%), url('/images/band/band_one.jpg');
+    background-size: cover;
+    height: 100vh;
+}
