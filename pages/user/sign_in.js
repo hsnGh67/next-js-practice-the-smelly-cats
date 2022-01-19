@@ -5,12 +5,12 @@ import * as Yup from "yup"
 import { useFormik } from "formik"
 import { string } from "yup"
 import { formikHelper } from "../../helper/functions"
+import axios from "axios"
+import {signIn , getSession} from "next-auth/react"
+import { getToken } from "next-auth/jwt"
 
 export default function Home() {
   const [formType , setFormtype] = useState(false)
-  const [email , setEmail] = useState("")
-  const [password , setPassword] = useState("")
-  const [repeatPass , setRepeatPass] = useState("")
 
   const schema = formType?
   Yup.object({
@@ -23,20 +23,42 @@ export default function Home() {
     password : string().required("enter your password").min(6 , "Minimum 6 character"),
   })
   
-  const submitForm = (values)=>{
-    console.log(values)
+  const submitForm = async(values)=>{
+    if(formType){ //signUp
+      if(values.password === values.repeatPass){
+        const result = await axios.post("/api/auth/register", 
+        {
+          email : values.email,
+          password : values.password
+        })
+
+        console.log(result)
+      }
+      else{
+        formik.setErrors({repeatPass : "Repeat Password is incorrect"})
+      }
+    }
+    else{
+      const result = await signIn('credentials',{
+        redirect : false,
+        ...values
+      })
+      const session = await getSession()
+      const token = await getToken ()
+      console.log("token" , token)
+    }
   }
 
   const formik = useFormik({
     initialValues : {
-      email : email,
-      password : password,
-      repeatPass : repeatPass
+      email : "",
+      password : "",
+      repeatPass : ""
     },
     validationSchema : schema,
     onSubmit : submitForm
   })
-  console.log({...formik.getFieldProps("email")})
+
   return (
     <div className="container vh-100">
       <div className="row justify-content-center">
@@ -44,33 +66,33 @@ export default function Home() {
             <h1 className="fs-3 mt-5">
               {
                 formType?
-                "Please register your Email and choose a password":
-                "Enter your Email and password to sign in"
+                "Register":
+                "Log in"
               }
             </h1>
             <form>
+              <div className="input-group mb-4 mt-4">
+                <TextField
+                  style={{width : "100%"}}
+                  label="Enter your email"
+                  name="email"
+                  {...formik.getFieldProps("email")}
+                  {...formikHelper(formik , "email")}
+                />
+              </div>
+              <div className="input-group mb-4 mt-4">
+                <TextField
+                  style={{width : "100%"}}
+                  label="Enter your password"
+                  name="password"
+                  type="password"
+                  {...formik.getFieldProps("password")}
+                  {...formikHelper(formik , "password")}
+                />
+              </div>
               {
                 formType?
                 <>
-                  <div className="input-group mb-4 mt-4">
-                    <TextField
-                      style={{width : "100%"}}
-                      label="Enter your email"
-                      name="email"
-                      {...formik.getFieldProps("email")}
-                      {...formikHelper(formik , "email")}
-                    />
-                  </div>
-                  <div className="input-group mb-4 mt-4">
-                    <TextField
-                      style={{width : "100%"}}
-                      label="Enter your password"
-                      name="password"
-                      type="password"
-                      {...formik.getFieldProps("password")}
-                      {...formikHelper(formik , "password")}
-                    />
-                  </div>
                   <div className="input-group mb-4 mt-4">
                     <TextField
                       style={{width : "100%"}}
@@ -101,25 +123,6 @@ export default function Home() {
                   </div> 
                 </>:
               <>
-                <div className="input-group mb-4 mt-4">
-                  <TextField
-                    style={{width : "100%"}}
-                    label="Enter your email"
-                    name="email"
-                    {...formik.getFieldProps("email")}
-                    {...formikHelper(formik , "email")}
-                  />
-                </div>
-                <div className="input-group mb-4 mt-4">
-                  <TextField
-                    style={{width : "100%"}}
-                    label="Enter your password"
-                    name="password"
-                    type="password"
-                    {...formik.getFieldProps("password")}
-                    {...formikHelper(formik , "password")}
-                  />
-                </div>
                 <div className="mb-4 mt-4">
                   <Button
                     variant="contained"
