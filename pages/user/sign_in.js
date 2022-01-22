@@ -6,11 +6,16 @@ import { useFormik } from "formik"
 import { string } from "yup"
 import { formikHelper } from "../../helper/functions"
 import axios from "axios"
-import {signIn , getSession} from "next-auth/react"
-import { getToken } from "next-auth/jwt"
+import {signIn} from "next-auth/react"
+import { userSignIn } from "../../store/actions/user.action"
+import { useDispatch } from "react-redux"
+import { useRouter } from "next/router"
+import { errorDispatcher } from "../../store/actions/notification.action"
 
 export default function Home() {
   const [formType , setFormtype] = useState(false)
+  const dispatch = useDispatch()
+  const router = useRouter()
 
   const schema = formType?
   Yup.object({
@@ -43,9 +48,13 @@ export default function Home() {
         redirect : false,
         ...values
       })
-      const session = await getSession()
-      const token = await getToken ()
-      console.log("token" , token)
+      console.log("result" , result)
+      if(result.status === 200){
+        dispatch(userSignIn(router))
+      }
+      else{ 
+          dispatch(errorDispatcher(result.error))
+      } 
     }
   }
 

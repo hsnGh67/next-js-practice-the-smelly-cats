@@ -5,6 +5,9 @@ import { findUserByEmail } from "../../../database/services/user.service"
 import { passwordCheck } from "../../../database/utils/tools"
 
 export default NextAuth({
+  session:{
+    jwt:true
+  },
   providers : [
     Credentials({
       async authorize(credentials){

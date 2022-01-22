@@ -1,7 +1,13 @@
 import Link from "next/link"
 import { useEffect, useState } from "react"
+import { useSelector , useDispatch } from "react-redux"
+import { userSignOut } from "../../../store/actions/user.action"
+import { useRouter } from "next/router"
 
 const Header = props =>{
+    const user = useSelector (state => state.user)
+    const dispatch = useDispatch()
+    const router = useRouter()
     const [light , setLight] = useState(false)
     useEffect(()=>{
         if(typeof(window)!=="undefined"){
@@ -11,6 +17,11 @@ const Header = props =>{
             
         }
     },[])
+
+    const signOut = ()=>{
+        dispatch(userSignOut())
+        router.push("/")
+    }
 
     return(
         <nav className={`navbar navbar-expand-md fixed-top py-3 ${light?"navbar-light bg-white shadow":"navbar-dark bg-dark"}`}>
@@ -30,14 +41,31 @@ const Header = props =>{
                         </li>
                         <li className="nav-item">
                             <Link href={"#"}>
-                                <a className="nav-link">Contacts</a>
+                                <a className="nav-link">Contact</a>
                             </Link>
                         </li>
-                        <li className="nav-item">
-                            <Link href={"/user/sign_in"}>
-                                <a className="nav-link">Sign in</a>
-                            </Link>
-                        </li>
+                        {
+                            user.auth ?
+                            <li className="nav-item">
+                                <Link href="/user/dashboard">
+                                    <a className="nav-link">Dashboard</a>
+                                </Link>
+                            </li>:
+                            null
+                        }
+                        {
+                            user.auth ?
+                            <li className="nav-item">
+                                <Link href="#">
+                                    <a className="nav-link" onClick={signOut}>Sign out</a>
+                                </Link>
+                            </li>:
+                            <li className="nav-item">
+                                <Link href={"/user/sign_in"}>
+                                    <a className="nav-link">Sign in</a>
+                                </Link>
+                            </li>
+                        }
                     </ul>
                 </div>
             </div>
