@@ -20,7 +20,6 @@ export const userSignIn = (router)=>{
     }
 }
 
-
 export const userSignOut = ()=>{
     return async(dispatch) =>{ 
         signOut({redirect : false})
@@ -28,5 +27,22 @@ export const userSignOut = ()=>{
             type : types.USER_SIGNED_OUT
         })
         dispatch(successDispatcher("Succesfully signed out"))
+    }
+}
+
+export const userAutoSignIn = (callback)=>{
+    return async(dispatch) =>{ 
+        try{
+            const user = await axios.get("/api/user")
+            dispatch({
+                type : types.USER_SIGNED_IN,
+                data : user.data.data
+            })
+            callback()
+        }catch(error){
+            console.log(error)
+            dispatch(errorDispatcher(error.message))
+            callback()
+        }
     }
 }

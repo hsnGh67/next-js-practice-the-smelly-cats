@@ -1,0 +1,30 @@
+.mainContainer{
+    min-height: 100vh;
+}
+.rightContainer{
+    border-right-width: 1px;
+    border-right-color: rgb(150, 146, 146);
+    border-right-style: solid;
+}
+.tab{
+    height: 555px;
+    background-color: rgb(166, 173, 173);
+    z-index: 1;
+}
+.btn{
+    border-width: 0px 0px 1px 0px;
+    border-color: black;
+    border-style: solid;
+    padding : 15px 0px;
+    text-align: center;
+    color: black;
+}
+.btnTab{
+    padding : 15px 0px;
+    margin: 0px;
+    text-align: center;
+    color: white;
+}
+.link{
+    text-decoration: none;
+}

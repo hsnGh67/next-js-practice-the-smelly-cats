@@ -22,7 +22,7 @@ const MainLayout = props =>{
     },[notification])
 
     return(
-        <div className={`${styles.container}`}>
+        <div className={`${styles.container} pb-5 pb-md-0`}>
             <Header/>
             <div style={{minHeight  : "100vh"}}>
                 {props.children}
