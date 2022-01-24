@@ -20,7 +20,7 @@ const AdminLayout = (props)=>{
                             </div>
                         </a>
                     </Link>
-                    <Link href={"/user/dashboard/create_show"}>
+                    <Link href={"/user/dashboard/shows/create"}>
                         <a className={`${styles.link}`}>
                             <div className={`${styles.btn}`}>
                                 Create show
@@ -52,7 +52,7 @@ const AdminLayout = (props)=>{
                             </Link>
                         </div>
                         <div className="col">
-                            <Link href={"/user/dashboard/create_show"}>
+                            <Link href={"/user/dashboard/shows/create"}>
                                 <a className={`${styles.link}`}>
                                     <div className={`${styles.btnTab}`}>
                                     Create show
