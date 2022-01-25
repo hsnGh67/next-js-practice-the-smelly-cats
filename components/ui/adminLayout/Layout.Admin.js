@@ -44,7 +44,7 @@ const AdminLayout = (props)=>{
                         </div>
                         <div className="col">
                             <Link href={"/user/dashboard/shows"}>
-                                <a className={`${styles.link}`}>
+                                <a className={`${styles.link}`} >
                                     <div className={`${styles.btnTab}`}>
                                         Shows
                                     </div>

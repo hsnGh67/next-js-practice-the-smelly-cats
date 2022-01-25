@@ -9,6 +9,7 @@ export default async function(req,res){
        const user = new UserModel({...req.body , password : hashedPassword})
        try{
         await user.save()
+        res.status(200).json({message : "User succesfully created"})
        }catch(e){
            if(e.code === 11000){
                res.status(400).json({message : "Email must be unique"})

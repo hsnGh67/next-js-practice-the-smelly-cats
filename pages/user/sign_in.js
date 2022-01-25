@@ -6,7 +6,7 @@ import { useFormik } from "formik"
 import { string } from "yup"
 import { formikHelper } from "../../helper/functions"
 import axios from "axios"
-import {signIn} from "next-auth/react"
+import {getSession, signIn} from "next-auth/react"
 import { userSignIn } from "../../store/actions/user.action"
 import { useDispatch } from "react-redux"
 import { useRouter } from "next/router"
@@ -37,24 +37,38 @@ export default function Home() {
           password : values.password
         })
 
-        console.log(result)
+        if(result.status === 200){
+          login(values)
+        }
+        else{ 
+            dispatch(errorDispatcher(result.error))
+        } 
+        
       }
       else{
         formik.setErrors({repeatPass : "Repeat Password is incorrect"})
       }
     }
     else{
-      const result = await signIn('credentials',{
-        redirect : false,
-        ...values
-      })
-      console.log("result" , result)
-      if(result.status === 200){
-        dispatch(userSignIn(router))
+       login(values , "/user/dashboard")
+    }
+  }
+
+  const login = async(values , route="/")=>{
+    const result = await signIn('credentials',{
+      redirect : false,
+      ...values
+    })
+    if(result.status === 200){
+      const session = await getSession()
+      if(session.user.role === "admin"){
+        dispatch(userSignIn(router , "/user/dashboard"))
+      }else{
+        dispatch(userSignIn(router , "/"))
       }
-      else{ 
-          dispatch(errorDispatcher(result.error))
-      } 
+    }
+    else{ 
+        dispatch(errorDispatcher(result.error))
     }
   }
 
