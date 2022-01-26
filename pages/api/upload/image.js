@@ -9,10 +9,9 @@ export const config = {
     }
 }
 
-const saveFile  = async(file)=>{
+const saveFile  = (file)=>{
     const data = fs.readFileSync(file.filepath)
     const fileName = Date.now() + "_" + file.originalFilename
-    console.log("DDDDDDDDDD",file.filepath)
     fs.writeFileSync(`./public/images/venues/${fileName}` , data)
     fs.unlinkSync(file.filepath)
     return fileName

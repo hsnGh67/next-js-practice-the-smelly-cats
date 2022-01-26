@@ -5,7 +5,6 @@ const Uploader = forwardRef((props , ref) =>{
     const onChange = (event)=>{
         setImgUrl(URL.createObjectURL(event.target.files[0]))
         props.updateImageData(event.target.files[0])
-        console.log("IIIIIIIIIII",URL.createObjectURL(event.target.files[0]))
     }
 
     return(

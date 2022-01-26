@@ -11,3 +11,20 @@ export const addShow = async(req)=>{
         throw new Error("Error in add show")
     }
 }
+
+export const getShows = async(page , limit)=>{
+    const myAggregate = ShowModel.aggregate()
+    const options = {
+        page,
+        limit
+    }
+
+    const shows = await ShowModel.aggregatePaginate(myAggregate , options)
+
+    return shows
+}
+
+export const deleteShow = async(id)=>{
+    await ShowModel.deleteById(id)
+    return true
+}

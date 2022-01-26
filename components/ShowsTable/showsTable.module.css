@@ -1,0 +1,19 @@
+.remove{
+    background-color: rgb(230, 31, 31) !important;
+    color: white !important;
+    text-align: center !important;
+}
+
+.remove:hover{
+    background-color: rgb(243, 61, 61)!important;
+}
+
+.edit{
+    background-color: rgb(16, 156, 16) !important;
+    color: white !important;
+    text-align: center !important;
+}
+
+.edit:hover{
+    background-color: rgb(85, 223, 85) !important;
+}

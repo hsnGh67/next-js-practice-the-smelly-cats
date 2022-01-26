@@ -14,7 +14,6 @@ export const userSignIn = (router , route)=>{
             dispatch(successDispatcher("Succesfully signed in"))
             router.push(route)
         }catch(error){
-            console.log(error)
             dispatch(errorDispatcher(error.message))
         }
     }
@@ -40,7 +39,6 @@ export const userAutoSignIn = (callback)=>{
             })
             callback()
         }catch(error){
-            console.log(error)
             dispatch(errorDispatcher(error.message))
             callback()
         }

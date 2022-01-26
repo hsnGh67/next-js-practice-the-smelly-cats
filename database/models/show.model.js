@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import aggregatePaginate from "mongoose-aggregate-paginate-v2"
 
 const show = mongoose.Schema({
     slug:{
@@ -46,5 +47,7 @@ const show = mongoose.Schema({
         required:[true,'The time is required']
     }
 });
+
+show.plugin(aggregatePaginate)
 
 export default mongoose.models.Show || new mongoose.model("Show" , show)

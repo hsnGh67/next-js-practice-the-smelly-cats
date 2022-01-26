@@ -5,6 +5,5 @@ export const findUserByEmail = async(email)=>{
 }
 
 export const findUserById= async(id)=>{
-    console.log("id" , id)
     return await UserModel.findById(id)
 }

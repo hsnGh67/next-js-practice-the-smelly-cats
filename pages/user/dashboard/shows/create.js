@@ -24,10 +24,8 @@ const CreateShow = ()=>{
             
             try{
                 const imgResult = await axios.post("/api/upload/image" , body)
-                console.log(imgResult)
                 imageName = imgResult.data.fileName
             }catch(error){
-                console.log(error)
             }
         }
         try{
@@ -40,7 +38,6 @@ const CreateShow = ()=>{
                 dispatch(errorDispatcher(result.data.message))
             }
         }catch(error){
-            console.log(error)
             dispatch(errorDispatcher(error.message))
         }
     }
