@@ -25,6 +25,7 @@ const PaginateComponent = ({totalPages , hasPrevPage , hasNextPage , page , getP
                         <Pagination.Item
                             active={page === item}
                             onClick={()=>getPage(item)}
+                            key={item.toString()}
                         >
                             {
                                 item

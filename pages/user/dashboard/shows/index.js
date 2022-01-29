@@ -34,7 +34,7 @@ const Shows = (props)=>{
 }
 
 export const getServerSideProps = async({req , res})=>{
-    const shows = await getShows(1 , 1)
+    const shows = await getShows(1)
     return{
         props : {
             shows : JSON.parse(JSON.stringify(shows))

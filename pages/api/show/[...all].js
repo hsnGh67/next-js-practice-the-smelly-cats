@@ -28,15 +28,15 @@ handler.post(
     checkAuth,
     async(req , res)=>{
         const body = req.body
+        console.log(body)
         try{
             await connectToDB()
-            const shows = await getShows(body.page , 1)
+            const shows = await getShows(body.page)
             if(!shows) res.status(401).json({error : "No shows found"})
             res.status(200).json({shows : shows})
         }catch(error){
             res.status(400).json({error : error.message})
         }
-        
     }
 )
 
@@ -44,13 +44,19 @@ handler.delete(
     "/api/show/delete",
     checkAuth,
     async(req , res)=>{
-        if(!checkRole(req , 'deleteAny' , 'shows')){
-            res.status(401).end("You can not delete shows")
+        const body = req.body
+        try{
+            await connectToDB()
+            if(!checkRole(req , 'deleteAny' , 'shows')){
+                res.status(401).end("You can not delete shows")
+            }
+    
+            const result = await deleteShow(body.id)
+    
+            res.status(200).json({message : "Show deleted successfully"})
+        }catch(error){
+            res.status(400).json({error : error.message})
         }
-
-        await deleteShow(req.body.id)
-
-        res.status(200).json({message : "Show deleted successfully"})
     }
 )
 export default handler

@@ -3,9 +3,11 @@ import { useRef, useState } from "react"
 import { Button, Modal, Table } from "react-bootstrap"
 import PaginateComponent from "../paginate/PaginateComponent"
 import styles from "./showsTable.module.css"
+import { successDispatcher } from "../../store/actions/notification.action"
+import { useDispatch } from "react-redux"
 
 const ShowsTable = ({shows , getPage})=>{
-
+    const dispatch = useDispatch()
     const [showRemoveModal , setShowRemoveModal] = useState(false)
     const removeId = useRef(null)
 
@@ -14,13 +16,19 @@ const ShowsTable = ({shows , getPage})=>{
         setShowRemoveModal(true)
     }
 
-    const remove = async(show) =>{
-        const result = await axios.delete(
+    const remove = () =>{
+        axios.delete(
             "/api/show/delete",
             {
-                id : show._id
+                data : {id : removeId.current}
             }
-        )
+        ).then(res=>{
+            setShowRemoveModal(false)
+            getPage(shows.page)
+            dispatch(successDispatcher(res.data.message))
+        }).catch(error =>{
+
+        })
     }
 
     const onEdit = show =>{
