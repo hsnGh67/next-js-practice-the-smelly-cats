@@ -48,3 +48,28 @@ export const getShowsByQuery = async(limit , sortBy)=>{
     }
 
 }
+
+export const getShowsById = async(id)=>{
+    try{ 
+        const show = await ShowModel.find({_id : id})
+
+        return JSON.parse(JSON.stringify(show))
+    }catch(error){
+        throw new Error("Can't get the show")
+    }
+
+}
+
+export const updateShow = async(show)=>{
+    try{ 
+        const newShow = await ShowModel.findOneAndUpdate(
+            {_id : show._id},
+            {"$set" : show},
+            {new : true}
+        )
+
+        return JSON.parse(JSON.stringify(newShow))
+    }catch(error){
+        throw new Error("Can't get the show")
+    }
+}

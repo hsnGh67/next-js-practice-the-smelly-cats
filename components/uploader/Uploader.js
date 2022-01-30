@@ -1,4 +1,4 @@
-import { forwardRef, useImperativeHandle, useState } from "react"
+import { forwardRef, useEffect, useImperativeHandle, useState } from "react"
 
 const Uploader = forwardRef((props , ref) =>{
     const [imgUrl , setImgUrl] = useState(null)
@@ -6,6 +6,14 @@ const Uploader = forwardRef((props , ref) =>{
         setImgUrl(URL.createObjectURL(event.target.files[0]))
         props.updateImageData(event.target.files[0])
     }
+
+    useEffect(()=>{
+        if(props.imageUrl){
+            setImgUrl(`/images/venues/${props.imageUrl}`)
+        }
+    },[])
+
+    console.log(imgUrl)
 
     return(
         <>

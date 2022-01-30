@@ -5,11 +5,13 @@ import PaginateComponent from "../paginate/PaginateComponent"
 import styles from "./showsTable.module.css"
 import { successDispatcher } from "../../store/actions/notification.action"
 import { useDispatch } from "react-redux"
+import { useRouter } from "next/router"
 
 const ShowsTable = ({shows , getPage})=>{
     const dispatch = useDispatch()
     const [showRemoveModal , setShowRemoveModal] = useState(false)
     const removeId = useRef(null)
+    const router = useRouter()
 
     const removePressed = (show)=>{
         removeId.current = show._id
@@ -32,7 +34,7 @@ const ShowsTable = ({shows , getPage})=>{
     }
 
     const onEdit = show =>{
-        alert("Edit")
+        router.push(`/user/dashboard/shows/edit/${show._id}`)
     }
 
     return(

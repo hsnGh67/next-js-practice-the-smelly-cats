@@ -1,6 +1,6 @@
 import nc from "next-connect";
 import { connectToDB } from "../../../database/connectDb"
-import { addShow, deleteShow, getShows } from "../../../database/services/show.service";
+import { addShow, deleteShow, getShows, updateShow } from "../../../database/services/show.service";
 import { checkRole } from "../../../database/utils/tools";
 import { checkAuth } from "../../../database/middlewares/checkAuth";
 
@@ -54,6 +54,28 @@ handler.delete(
             const result = await deleteShow(body.id)
     
             res.status(200).json({message : "Show deleted successfully"})
+        }catch(error){
+            res.status(400).json({error : error.message})
+        }
+    }
+)
+
+handler.patch(
+    "/api/show/update",
+    checkAuth,
+    async(req , res)=>{
+        const body = req.body
+        try{
+            await connectToDB()
+            if(!checkRole(req , 'updateAny' , 'shows')){
+                res.status(401).end("You can not update shows")
+            }
+
+            const result = await updateShow(body)
+            console.log(result)
+            
+            res.status(200).json({data : result , message : "Show updated successfully"})
+
         }catch(error){
             res.status(400).json({error : error.message})
         }
