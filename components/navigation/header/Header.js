@@ -35,7 +35,7 @@ const Header = props =>{
                 <div className="collapse navbar-collapse" id="collapsNav">
                     <ul className="navbar-nav  ms-auto">
                         <li className="nav-item">
-                            <Link href={"/user/dashboard/shows"}>
+                            <Link href={"/shows"}>
                                 <a className="nav-link">Shows</a>
                             </Link>
                         </li>

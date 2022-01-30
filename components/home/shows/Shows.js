@@ -31,20 +31,25 @@ const Shows = ({shows}) =>{
                         shows.map(item =>{
                             return(
                                 <div className={`col-md-6 col-lg-3 px-0 position-relative`}>
-                                    <Image
-                                        src={`/images/venues/${item.image}`}
-                                        width={1920}
-                                        height={1080}
-                                        layout="responsive"
-                                    />
-                                    <div className={`${styles.eventBoxCaption} text-center`}>
-                                        <div className="text-white">
-                                            12-15-2022
-                                        </div>
-                                        <div className="text-white">
-                                            Bob's tavern
-                                        </div>
-                                    </div>
+                                    <Link href={`/show/${item._id}`}>
+                                        <a>
+                                            <Image
+                                                src={`/images/venues/${item.image}`}
+                                                width={1920}
+                                                height={1080}
+                                                layout="responsive"
+                                            />
+                                            <div className={`${styles.eventBoxCaption} text-center`}>
+                                                <div className="text-white">
+                                                    12-15-2022
+                                                </div>
+                                                <div className="text-white">
+                                                    Bob's tavern
+                                                </div>
+                                            </div>
+                                        
+                                        </a>
+                                    </Link>
                                 </div>
 
                             )

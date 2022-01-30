@@ -12,18 +12,18 @@ export const addShow = async(req)=>{
     }
 }
 
-export const getShows = async(page)=>{
+export const getShows = async(page , limit=2)=>{
     const myAggregate = ShowModel.aggregate()
     const options = {
         page :page,
-        limit : 2
+        limit : limit
     }
 
     console.log(options)
 
     const shows = await ShowModel.aggregatePaginate(myAggregate , options)
 
-    return shows
+    return JSON.parse(JSON.stringify(shows))
 }
 
 export const deleteShow = async(id)=>{
@@ -49,7 +49,7 @@ export const getShowsByQuery = async(limit , sortBy)=>{
 
 }
 
-export const getShowsById = async(id)=>{
+export const getShowById = async(id)=>{
     try{ 
         const show = await ShowModel.find({_id : id})
 

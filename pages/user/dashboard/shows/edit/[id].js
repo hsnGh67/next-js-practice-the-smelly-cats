@@ -10,7 +10,7 @@ import RouteGaurd from "../../../../../helper/Gaurd"
 import Uploader from "../../../../../components/uploader/Uploader"
 import { useRef, useState } from "react"
 import { checkAuth } from "../../../../../database/middlewares/checkAuth"
-import { getShowsById } from "../../../../../database/services/show.service"
+import { getShowById } from "../../../../../database/services/show.service"
 import { useRouter } from "next/router"
 
 
@@ -168,7 +168,7 @@ const CreateShow = ({show})=>{
 export const getServerSideProps = async({req , res, query})=>{
     if(checkAuth(req , res , ()=>true)){    }
 
-    const show = await getShowsById(query.id)
+    const show = await getShowById(query.id)
     if(!show){
         return{
             notFound : true
