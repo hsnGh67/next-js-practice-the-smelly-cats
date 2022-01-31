@@ -13,7 +13,7 @@ const Shows = ({shows}) =>{
                             <h1 className="text-white pb-2">
                                 Checkout the events this year
                             </h1>
-                            <Link href={"#"}>
+                            <Link href={"/shows"}>
                                 <Button  
                                     variant="contained"
                                     size="small"
@@ -31,7 +31,7 @@ const Shows = ({shows}) =>{
                         shows.map(item =>{
                             return(
                                 <div className={`col-md-6 col-lg-3 px-0 position-relative`}>
-                                    <Link href={`/show/${item._id}`}>
+                                    <Link href={`/shows/${item._id}`}>
                                         <a>
                                             <Image
                                                 src={`/images/venues/${item.image}`}

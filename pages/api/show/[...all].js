@@ -31,7 +31,13 @@ handler.post(
         console.log(body)
         try{
             await connectToDB()
-            const shows = await getShows(body.page)
+            const num = body.num
+            let shows = {}
+            if(num){
+                shows = await getShows(body.page , num)
+            }else{
+                shows = await getShows(body.page)
+            }
             if(!shows) res.status(401).json({error : "No shows found"})
             res.status(200).json({shows : shows})
         }catch(error){

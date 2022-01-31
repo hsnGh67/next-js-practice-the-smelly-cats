@@ -19,8 +19,6 @@ export const getShows = async(page , limit=2)=>{
         limit : limit
     }
 
-    console.log(options)
-
     const shows = await ShowModel.aggregatePaginate(myAggregate , options)
 
     return JSON.parse(JSON.stringify(shows))

@@ -1,4 +1,5 @@
 import Image from "next/image"
+import YTFrame from "../../components/YTFrame/YtFrame"
 import { getShowById } from "../../database/services/show.service"
 
 const ShowDetails = ({show})=>{
@@ -14,16 +15,19 @@ const ShowDetails = ({show})=>{
                         height={1080}
                         layout="responsive"
                     />
-                    <h1>
+                    <h1 className="mt-3 mb-3">
                         {
                             show.title
                         }
                     </h1>
-                    <p className="">
+                    <p className="excerpt">
                         {
                             show.excerpt
                         }
                     </p>
+                    <YTFrame
+                        ytid={show.yt}
+                    />
                 </div>
             </div>
         </div>

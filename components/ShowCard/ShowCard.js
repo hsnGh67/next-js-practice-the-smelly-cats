@@ -25,7 +25,7 @@ const ShowCard = ({show})=>{
                     </p>
                 </CardContent>
                 <CardActions>
-                    <Link href={`/shows/${show.slug}`}>
+                    <Link href={`/shows/${show._id}`}>
                         <Button
                             variant="contained"
                             color="primary"
